@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beira-Rio · Cozinha Pantaneira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rio:#0F3B32; --rio-2:#175245; --ipe:#F0B323; --giz:#EEF2EE; --tinta:#14231F; --musgo:#5B6F67; --linha:#CBD6CF;
+  --titulo:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --texto:"Newsreader",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texto);font-size:1.125rem;line-height:1.6;color:var(--tinta);background:var(--giz)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ipe);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:var(--titulo);line-height:1.05;letter-spacing:-.02em}
+
+/* Topo */
+header{position:sticky;top:0;z-index:20;background:var(--rio);color:var(--giz)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--titulo);font-weight:800;font-size:1.3rem;text-decoration:none}
+nav{display:flex;gap:1.5rem;align-items:center}
+nav a{text-decoration:none;font-size:1rem}
+nav a:hover{text-decoration:underline;text-decoration-color:var(--ipe);text-underline-offset:6px}
+.btn{font-family:var(--titulo);font-weight:800;font-size:1rem;border:0;border-radius:999px;padding:.7rem 1.3rem;background:var(--ipe);color:var(--tinta);cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.08)}
+.btn.sec{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+#abrirCarrinho{position:relative}
+#contagem{background:var(--tinta);color:var(--giz);border-radius:999px;font-size:.8rem;padding:.05rem .5rem;margin-left:.4rem}
+
+/* Hero */
+.hero{background:var(--rio);color:var(--giz);position:relative;overflow:hidden;padding:5rem 0 7rem}
+.sol{position:absolute;right:-90px;top:-90px;width:380px;height:380px;border-radius:50%;background:var(--ipe)}
+.hero .wrap{position:relative}
+.hero h1{font-weight:800;font-size:clamp(3rem,10vw,7.5rem);max-width:9ch}
+.hero p{max-width:34rem;margin:1.5rem 0 2rem;font-size:1.3rem;color:#CFE0D8}
+.hero .acoes{display:flex;gap:.8rem;flex-wrap:wrap}
+.onda{position:absolute;left:0;bottom:-1px;width:100%;height:60px;display:block}
+
+/* Seções */
+section{padding:4.5rem 0}
+.cab{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.cab h2{font-size:clamp(2rem,5vw,3.2rem)}
+.cab p{color:var(--musgo);max-width:28rem}
+
+/* Cardápio */
+.filtros{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.filtros button{font-family:var(--titulo);font-weight:500;font-size:1rem;padding:.5rem 1.1rem;border-radius:999px;border:2px solid var(--rio);background:transparent;color:var(--rio);cursor:pointer}
+.filtros button[aria-pressed="true"]{background:var(--rio);color:var(--giz)}
+.prato{display:grid;grid-template-columns:1fr auto;gap:.3rem 1.5rem;padding:1.3rem 0;border-top:1px solid var(--linha)}
+.prato:last-child{border-bottom:1px solid var(--linha)}
+.prato h3{font-size:1.4rem}
+.prato p{grid-column:1;color:var(--musgo)}
+.prato .preco{font-family:var(--titulo);font-weight:800;font-size:1.3rem;grid-row:1;grid-column:2;text-align:right}
+.prato button{grid-column:2;grid-row:2;justify-self:end;align-self:start}
+.prato .btn{background:var(--rio);color:var(--giz);padding:.45rem 1rem}
+.tag{display:inline-block;font-size:.85rem;background:var(--ipe);color:var(--tinta);border-radius:4px;padding:0 .45rem;margin-left:.5rem;vertical-align:middle;font-family:var(--texto)}
+
+/* Reserva */
+#reserva{background:var(--ipe)}
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.duas h2{font-size:clamp(2rem,5vw,3.2rem);margin-bottom:1rem}
+form{display:grid;gap:1rem}
+label{font-family:var(--titulo);font-weight:500;font-size:.95rem;display:grid;gap:.3rem}
+input,select{font:inherit;padding:.7rem .9rem;border:2px solid var(--tinta);border-radius:8px;background:#FFFBEF;color:var(--tinta)}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.msg{min-height:1.5rem;font-weight:500}
+.msg.erro{color:#8A1C0F}
+
+/* Rodapé */
+footer{background:var(--tinta);color:#C8D6CF;padding:3rem 0}
+footer .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+footer h3{color:var(--giz);font-size:1.1rem;margin-bottom:.5rem}
+#status{display:inline-block;padding:.1rem .6rem;border-radius:999px;font-family:var(--titulo);font-weight:500;font-size:.9rem;margin-bottom:.5rem}
+#status.aberto{background:var(--ipe);color:var(--tinta)}
+#status.fechado{background:#3A4A45;color:var(--giz)}
+
+/* Carrinho */
+#gaveta{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:var(--giz);box-shadow:-8px 0 30px rgba(0,0,0,.25);transform:translateX(100%);transition:transform .25s;z-index:30;display:flex;flex-direction:column;padding:1.5rem}
+#gaveta.aberta{transform:none}
+#gaveta[inert]{visibility:hidden}
+#gaveta h2{font-size:1.8rem;margin-bottom:1rem}
+#itens{flex:1;overflow:auto;list-style:none;padding:0}
+#itens li{display:grid;grid-template-columns:1fr auto;gap:.2rem .8rem;padding:.8rem 0;border-bottom:1px solid var(--linha)}
+.qtd{display:flex;align-items:center;gap:.4rem}
+.qtd button{width:28px;height:28px;border-radius:50%;border:2px solid var(--rio);background:transparent;font-weight:800;cursor:pointer;color:var(--rio)}
+.vazio{color:var(--musgo);padding:1rem 0}
+.total{display:flex;justify-content:space-between;font-family:var(--titulo);font-weight:800;font-size:1.4rem;padding:1rem 0}
+.topo-gaveta{display:flex;justify-content:space-between;align-items:start}
+.fechar{background:none;border:0;font-size:1.8rem;cursor:pointer;color:var(--tinta)}
+#veu{position:fixed;inset:0;background:rgba(10,20,16,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:25}
+#veu.on{opacity:1;pointer-events:auto}
+
+@media (max-width:760px){
+  nav a.link{display:none}
+  .duas,footer .wrap{grid-template-columns:1fr}
+  .sol{width:240px;height:240px;right:-70px;top:-70px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">Beira-Rio</a>
+    <nav>
+      <a class="link" href="#cardapio">Cardápio</a>
+      <a class="link" href="#reserva">Reservas</a>
+      <a class="link" href="#contato">Contato</a>
+      <button class="btn" id="abrirCarrinho" aria-label="Abrir pedido">Pedido<span id="contagem">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="sol" aria-hidden="true"></div>
+    <div class="wrap">
+      <h1>Pantanal à mesa</h1>
+      <p>Pacu na brasa, farofa de banana e arroz carreteiro, feitos devagar, com peixe do rio e carne de fazenda da região.</p>
+      <div class="acoes">
+        <a class="btn" href="#cardapio">Ver cardápio</a>
+        <a class="btn sec" href="#reserva">Reservar mesa</a>
+      </div>
+    </div>
+    <svg class="onda" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z" fill="#EEF2EE"/></svg>
+  </div>
+
+  <section id="cardapio">
+    <div class="wrap">
+      <div class="cab">
+        <h2>Cardápio</h2>
+        <p>Toque em um prato para adicioná-lo ao pedido.</p>
+      </div>
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar por categoria"></div>
+      <div id="lista"></div>
+    </div>
+  </section>
+
+  <section id="reserva">
+    <div class="wrap duas">
+      <div>
+        <h2>Reserve sua mesa</h2>
+        <p>Atendemos grupos de até 12 pessoas. Para mais convidados, ligue para nós.</p>
+      </div>
+      <form id="formReserva" novalidate>
+        <label>Nome
+          <input type="text" id="nome" autocomplete="name" required>
+        </label>
+        <div class="par">
+          <label>Data
+            <input type="date" id="data" required>
+          </label>
+          <label>Horário
+            <select id="hora" required></select>
+          </label>
+        </div>
+        <label>Pessoas
+          <input type="number" id="pessoas" min="1" max="12" value="2" required>
+        </label>
+        <button class="btn" type="submit" style="background:var(--tinta);color:var(--giz)">Confirmar reserva</button>
+        <p class="msg" id="msgReserva" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <div>
+      <h3>Beira-Rio</h3>
+      <p>Av. das Palmeiras, 120<br>Várzea Grande, MT</p>
+    </div>
+    <div>
+      <h3>Horários</h3>
+      <span id="status"></span>
+      <p>Ter a sex: 11h às 22h<br>Sáb e dom: 11h às 23h<br>Segunda: fechado</p>
+    </div>
+    <div>
+      <h3>Contato</h3>
+      <p>(65) 3000-0000<br>reservas@beirario.example</p>
+    </div>
+  </div>
+</footer>
+
+<div id="veu"></div>
+<aside id="gaveta" aria-label="Seu pedido" inert>
+  <div class="topo-gaveta">
+    <h2>Seu pedido</h2>
+    <button class="fechar" id="fecharCarrinho" aria-label="Fechar pedido">×</button>
+  </div>
+  <ul id="itens"></ul>
+  <div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+  <button class="btn" id="finalizar">Enviar pedido</button>
+  <p class="msg" id="msgPedido" role="status"></p>
+</aside>
+
+<script>
+const PRATOS = [
+  {id:1, cat:"Peixes", nome:"Pacu assado na brasa", desc:"Pacu inteiro, limão e ervas, com arroz e vinagrete.", preco:78, tag:"Da casa"},
+  {id:2, cat:"Peixes", nome:"Caldo de piranha", desc:"Caldo encorpado com mandioca e coentro.", preco:32},
+  {id:3, cat:"Peixes", nome:"Pintado na telha", desc:"Filé de pintado grelhado com purê de banana-da-terra.", preco:69},
+  {id:4, cat:"Carnes", nome:"Arroz carreteiro", desc:"Charque desfiado, arroz e temperos do Pantanal.", preco:46},
+  {id:5, cat:"Carnes", nome:"Costela de fogo de chão", desc:"Doze horas de brasa, servida com mandioca cozida.", preco:84, tag:"Da casa"},
+  {id:6, cat:"Carnes", nome:"Maria Isabel", desc:"Arroz com carne seca, cebola e pimenta de cheiro.", preco:44},
+  {id:7, cat:"Acompanhamentos", nome:"Farofa de banana", desc:"Banana-da-terra frita, bacon e farinha crocante.", preco:18},
+  {id:8, cat:"Acompanhamentos", nome:"Mandioca frita", desc:"Palitos dourados com molho de pimenta biquinho.", preco:22},
+  {id:9, cat:"Sobremesas", nome:"Doce de caju com queijo", desc:"Caju em calda e queijo fresco.", preco:19},
+  {id:10, cat:"Sobremesas", nome:"Sorvete de cumbaru", desc:"Sorvete artesanal da castanha do cerrado.", preco:17},
+  {id:11, cat:"Bebidas", nome:"Suco de bocaiuva", desc:"Gelado e levemente adocicado.", preco:12},
+  {id:12, cat:"Bebidas", nome:"Guaraná ralado", desc:"Preparado na hora, com gelo.", preco:10}
+];
+const CATS = ["Todos", ...new Set(PRATOS.map(p => p.cat))];
+const brl = n => n.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+const $ = s => document.querySelector(s);
+let filtro = "Todos";
+let carrinho = {};
+
+/* Cardápio */
+function desenharFiltros(){
+  $("#filtros").innerHTML = CATS.map(c =>
+    `<button type="button" aria-pressed="${c===filtro}" data-cat="${c}">${c}</button>`).join("");
+}
+function desenharLista(){
+  const itens = PRATOS.filter(p => filtro === "Todos" || p.cat === filtro);
+  $("#lista").innerHTML = itens.map(p => `
+    <article class="prato">
+      <h3>${p.nome}${p.tag ? `<span class="tag">${p.tag}</span>` : ""}</h3>
+      <span class="preco">${brl(p.preco)}</span>
+      <p>${p.desc}</p>
+      <button class="btn" data-add="${p.id}">Adicionar</button>
+    </article>`).join("");
+}
+$("#filtros").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  filtro = b.dataset.cat; desenharFiltros(); desenharLista();
+});
+$("#lista").addEventListener("click", e => {
+  const b = e.target.closest("[data-add]"); if(!b) return;
+  mudarQtd(+b.dataset.add, 1);
+  b.textContent = "Adicionado"; setTimeout(() => b.textContent = "Adicionar", 900);
+});
+
+/* Carrinho */
+function mudarQtd(id, delta){
+  carrinho[id] = (carrinho[id] || 0) + delta;
+  if(carrinho[id] <= 0) delete carrinho[id];
+  desenharCarrinho();
+}
+function desenharCarrinho(){
+  const ids = Object.keys(carrinho);
+  let total = 0, qtd = 0;
+  $("#itens").innerHTML = ids.length ? ids.map(id => {
+    const p = PRATOS.find(x => x.id == id), q = carrinho[id];
+    total += p.preco * q; qtd += q;
+    return `<li><strong>${p.nome}</strong><span>${brl(p.preco*q)}</span>
+      <div class="qtd"><button data-menos="${id}" aria-label="Diminuir">−</button>${q}<button data-mais="${id}" aria-label="Aumentar">+</button></div></li>`;
+  }).join("") : `<li class="vazio">Nenhum prato no pedido ainda. Escolha algo no cardápio.</li>`;
+  $("#total").textContent = brl(total);
+  $("#contagem").textContent = qtd;
+  $("#finalizar").disabled = !qtd;
+}
+$("#itens").addEventListener("click", e => {
+  const m = e.target.closest("[data-mais]"), n = e.target.closest("[data-menos]");
+  if(m) mudarQtd(+m.dataset.mais, 1);
+  if(n) mudarQtd(+n.dataset.menos, -1);
+});
+function gaveta(abrir){
+  $("#gaveta").classList.toggle("aberta", abrir);
+  $("#veu").classList.toggle("on", abrir);
+  $("#gaveta").inert = !abrir;
+  if(abrir) $("#fecharCarrinho").focus(); else $("#abrirCarrinho").focus();
+}
+$("#abrirCarrinho").onclick = () => gaveta(true);
+$("#fecharCarrinho").onclick = $("#veu").onclick = () => gaveta(false);
+document.addEventListener("keydown", e => { if(e.key === "Escape") gaveta(false); });
+$("#finalizar").onclick = () => {
+  carrinho = {}; desenharCarrinho();
+  $("#msgPedido").textContent = "Pedido enviado! Avisaremos quando estiver pronto.";
+};
+
+/* Reserva */
+const hoje = new Date();
+const iso = d => new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
+$("#data").min = iso(hoje); $("#data").value = iso(hoje);
+$("#hora").innerHTML = ["11:30","12:00","12:30","13:00","13:30","19:00","19:30","20:00","20:30","21:00"]
+  .map(h => `<option>${h}</option>`).join("");
+$("#formReserva").addEventListener("submit", e => {
+  e.preventDefault();
+  const msg = $("#msgReserva"), nome = $("#nome").value.trim(), n = +$("#pessoas").value;
+  const [a,m,d] = $("#data").value.split("-").map(Number);
+  const dia = new Date(a, m-1, d).getDay();
+  msg.className = "msg";
+  if(nome.length < 2){ msg.className = "msg erro"; msg.textContent = "Digite seu nome para reservar."; return; }
+  if(!$("#data").value){ msg.className = "msg erro"; msg.textContent = "Escolha uma data."; return; }
+  if(dia === 1){ msg.className = "msg erro"; msg.textContent = "Fechamos às segundas. Escolha outro dia."; return; }
+  if(!(n >= 1 && n <= 12)){ msg.className = "msg erro"; msg.textContent = "Informe de 1 a 12 pessoas."; return; }
+  msg.textContent = `Reserva confirmada, ${nome.split(" ")[0]}! ${n} ${n>1?"pessoas":"pessoa"} em ${d}/${m}/${a} às ${$("#hora").value}.`;
+  e.target.reset(); $("#data").value = iso(hoje); $("#pessoas").value = 2;
+});
+
+/* Aberto agora */
+function status(){
+  const agora = new Date(), dia = agora.getDay(), h = agora.getHours() + agora.getMinutes()/60;
+  const fecha = (dia === 0 || dia === 6) ? 23 : 22;
+  const aberto = dia !== 1 && h >= 11 && h < fecha;
+  const el = $("#status");
+  el.textContent = aberto ? "Aberto agora" : "Fechado agora";
+  el.className = aberto ? "aberto" : "fechado";
+}
+
+desenharFiltros(); desenharLista(); desenharCarrinho(); status();
+</script>
+</body>
+</html>
